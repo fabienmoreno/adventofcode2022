@@ -12,6 +12,5 @@ for i in range(0,p,3):
         C=c.count(j)
         if B>=1 and C>=1:
             s+=string.ascii_letters.index(j)+1
-            #print(j, string.ascii_letters.index(j)+1)
             break
 print(s)
