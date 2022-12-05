@@ -9,17 +9,18 @@ A=[["W","R","F"], \
 ["P","N","R","F","W","T","V","C"], \
 ["J","W","H","G","R","S","V"]]
 
-#Load sequence
+#Load movement sequence & create a list
 f=open('05/moves.txt','r')
 l=f.read().split("\n")
 le=[list(map(int,i.replace('move ','').replace(" from "," ").replace(" to "," ").split(" "))) for i in l]
+
+#Execute sequence
 for s in le:
-    qty=s[0]
-    org=s[1]-1
-    des=s[2]-1
-    st=A[org][-qty:]
-    A[org]=A[org][0:-qty]
-    #st.reverse()
-    A[des].extend(st)
-result = [c[-1] for c in A]
-print(''.join(result))
+    qty=s[0] #Quantity to be moved
+    org=s[1]-1 #Origin index
+    des=s[2]-1 #Destination index
+    st=A[org][-qty:] #Get crates to me moved
+    A[org]=A[org][0:-qty] #Remove crates from origin
+    A[des].extend(st) #Add crates to destination
+result = [c[-1] for c in A] #Get last crate in a list
+print(''.join(result)) #Concatenate list into a single string
