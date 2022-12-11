@@ -1,35 +1,3 @@
-class Nav:
-    def __init__(self,wd):
-        self.wd=wd
-    def wd(self):
-        return self.wd()
-    def cd(self,cd):
-        if "/" in cd: raise Exception("/ caracter not allowad in cd ")
-        if self.wd=="/": 
-            raise Exception("WD already in top directory")
-            pass
-        if cd=="..":
-            self.wd=self.wd[0:-1]
-            self.wd=self.wd[0:self.wd.rindex("/")+1]
-        else: self.wd=self.wd+cd+"/"
-    def getParent(self):
-        self.wd=self.wd[0:-1]
-        self.wd=self.wd[0:self.wd.rindex("/")+1]
-        return self.wd
-    def goDir(self,d):
-        self.wd=self.wd+d+"/"
-        return self.wd
-
-"""nav=Nav("/")
-a=nav.wd
-print(a)
-nav.cd("hello")
-nav.cd("test")
-print(nav.wd)
-nav.cd('..')
-print(nav.wd)
-nav.cd('..')
-print(nav.wd)"""
 dirs={}
 files={}
 
@@ -63,8 +31,7 @@ class Arbo:
             if self.wd in files.keys(): files[self.wd].append(int(arg[0]))
             else: files[self.wd]=[int(arg[0])]
 
-
-f=open('07/simple.txt','r')
+f=open('07/input.txt','r')
 l=f.read().split("\n")
 nav=Arbo("/")
 for c in l:
@@ -73,63 +40,26 @@ for c in l:
         cl=c.split(" ")
         nav.com(cl)
 
-print(dirs)
-print(files)
-
 dir_sizes={}
-nav=Nav("/")
 
 def folder_size(files, dirs, nav):
-    total=sum(files[nav.wd])
-    print(nav.wd)
+    global dir_sizes
+    total = 0
+    if nav.wd in files.keys():
+        total=sum(files[nav.wd])
     if nav.wd in dirs.keys():
         for d in dirs[nav.wd]:
-            nav.goDir(d)
-            total+=folder_size(files, dirs, nav)
+            sd=nav.wd+d+"/"
+            total+=folder_size(files, dirs, Arbo(sd))
+    dir_sizes[nav.wd]=total
     return total
 
-print(folder_size(files,dirs,nav))
+nav=Arbo("/")
+folder_size(files,dirs,nav)
 
-#a=nav.getParent()
+sum_th=0
+for d in dir_sizes:
+    if dir_sizes[d]<100000:
+        sum_th+=dir_sizes[d]
 
-
-
-
-print(dir_sizes)
-
-
-
-"""
-c="$ cd a".split(" ")
-nav.com(c)
-print(nav.wd)
-
-c="$ cd b".split(" ")
-nav.com(c)
-print(nav.wd)
-
-c="dir f".split(" ")
-nav.com(c)
-print(nav.wd)
-print(dirs)
-
-c="8504156 c.dat".split(" ")
-nav.com(c)
-print(nav.wd)
-print(dirs)
-
-c="$ ls".split(" ")
-nav.com(c)
-print(nav.wd)
-
-c="$ cd ..".split(" ")
-nav.com(c)
-print(nav.wd)
-
-c="dir e".split(" ")
-nav.com(c)
-print(nav.wd)
-print(dirs)
-print(files)
-
-"""
+print("Cumulated size of folders under 100000 :", sum_th)
