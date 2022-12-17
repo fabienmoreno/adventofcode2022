@@ -39,6 +39,19 @@ for seg in l:
         else:
             raise Exception("Error line rock break")
 
+#Find lowest rock line
+yline_max=0
+for x in range(x_max):
+    for y in range(yline_max, y_max):
+        if m_zero[x][y]==1:
+            yline_max=y
+
+#Add a bottom floor at maximum y rockline + 2
+for x in range(x_max):
+    m_zero[x][yline_max+2]=1
+print(yline_max)
+draw(m_zero)
+
 def find_drop(ic):
     #print(ic)
     if m_zero[ic[0]][ic[1]]==1:
@@ -60,9 +73,6 @@ def find_drop(ic):
     #print(final_cord)
     return final_cord
 
-"""init_cord = (500,0)
-final_cord = find_drop(init_cord)
-print(final_cord)"""
 i=0
 import time
 time.sleep(1)
@@ -71,6 +81,10 @@ while True:
     try: final_cord = find_drop(init_cord)
     except IndexError:
         print("Number of steps until overflow : ", i)
+        draw(m_zero)
+        break
+    except Exception:
+        print("Number of steps until saturation : ", i)
         draw(m_zero)
         break
     m_zero [final_cord[0]][final_cord[1]]=1
