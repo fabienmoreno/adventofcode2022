@@ -51,6 +51,8 @@ def fill_beacon(sensor,beacon):
 #
 
 #Definie a set of not accessible points
+row=2000000
+
 no_beacon = set()
 for i in range(len(sensors)):
     locations = fill_beacon(sensors[i],beacons[i])
@@ -60,7 +62,7 @@ for i in range(len(sensors)):
 #print(no_beacon)
 
 #Check number of occupied location on a specific row
-row=2000000
+
 counter=0
 for p in no_beacon:
     if p[0]==row: counter+=1
