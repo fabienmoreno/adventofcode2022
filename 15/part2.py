@@ -72,6 +72,7 @@ y_max=20
 print(rotate((x_min,y_min)),rotate((x_min,y_max)),rotate((x_max,y_min)),rotate((x_max,y_max)),)
 
 #Iterate over the exploration zone
+scan_zone={}
 zone={}
 w=rotate((x_max,y_max))[0]
 print(w)
@@ -79,12 +80,56 @@ for m in range(w+1):
     top=min(m,w-m)
     n=-top
     zone[m]=[]
+    scan_zone[m]=[n,top]
+    while n<=top:
+        zone[m].append(n)
+        n+=1
+print(scan_zone)
+
+
+def section_append(sections, new):
+    """for section in sections:
+        if """
+    return sections
+
+def addition(sec1, sec2):
+    if sec1[0]>sec1[1] or sec2[0]>sec2[1]:
+        raise Exception("Error on plans")
+    elif sec1[1]+1<sec2[0] or sec1[0]>sec2[1]+1:
+        return False
+    else:
+        sec=[]
+        sec.append(min(sec1[0],sec2[0]))
+        sec.append(max(sec1[1],sec2[1]))
+        return sec
+
+print("Addition : ", addition([10,12],[0,9]))
+
+exit()
+
+"""
+
+#Check each line for hole ?
+zone={}
+w=rotate((x_max,y_max))[0]
+print(w)
+for m in range(w+1):
+    top=min(m,w-m)
+    start=-top
+    end=top
+
+    #Find all square including y=m
+    plans_list=[]
+    for p in plans:
+
+
+
+    zone[m]=[]
     while n<=top:
         zone[m].append(n)
         n+=1
 
 
-exit()
 
 #Iterate on each point to find if inside a sensor/beacon circle
 x_min=0
@@ -108,3 +153,5 @@ for x in range(x_min,x_max,1):
                 check+=1
         if check==nb_sensors: 
             print(x,y)
+
+"""
