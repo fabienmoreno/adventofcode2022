@@ -16,6 +16,7 @@ for c in l:
 #print(beacons)
 print(sensors)
 
+#Formule de calcul de distance taxi entre deux points 
 def distance(s,b):
     d = abs(s[0]-b[0]) + abs(s[1]-b[1])
     return d
@@ -27,7 +28,7 @@ for i in range(nb_sensors):
     distances.append(distance(sensors[i],beacons[i]))
 print(distances)
 
-#Calcul des coordonnée des sommets des carré de couverture
+#Calcul des coordonnée des sommets des carrés de couverture
 pics=[]
 for i in range(nb_sensors):
     pic=[]
@@ -62,6 +63,25 @@ for i in range(nb_sensors):
     plans.append(plan)
 print("plans : ", plans)
 
+#Définition de la zone de recherche 
+x_min=0
+y_min=0
+x_max=20
+y_max=20
+## Apply rotation on zone peaks
+print(rotate((x_min,y_min)),rotate((x_min,y_max)),rotate((x_max,y_min)),rotate((x_max,y_max)),)
+
+#Iterate over the exploration zone
+zone={}
+w=rotate((x_max,y_max))[0]
+print(w)
+for m in range(w+1):
+    top=min(m,w-m)
+    n=-top
+    zone[m]=[]
+    while n<=top:
+        zone[m].append(n)
+        n+=1
 
 
 exit()
